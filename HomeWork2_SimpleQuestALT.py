@@ -29,6 +29,10 @@ guest2 = '''Дверь открыл незнакомец.
 ПОЖАЛУЙСТА, ПОМОГИТЕ!!!!
 ТАМ ЧЕЛОВЕК БЕЗ СОЗНАНИЯ'''
 sleep = 'ты уснул. конец игры'
+
+class KakayaToOshibka(Exception):
+    pass
+
 #здесь в nachalo первый выбор с функциями. буду думать вообще как можно это реализовать и правильно ли я функциями так разбрасываюсь
 def nachalo():
     print (pisat)
@@ -58,11 +62,16 @@ def action2():
     return posetitel()
 
 def posetitel():
-    dver = input('Открыть дверь? (да/нет)')
-    if dver.lower() in ['да','lf']:
-        print(guest)
-    elif dver.lower() in ['ytn','нет']:
-        print(guest2)
+    try:
+        dver = input('Открыть дверь? (да/нет)')
+        if dver.lower() in ['да','lf']:
+            print(guest)
+        elif dver.lower() in ['ytn','нет']:
+            print(guest2)
+        else:
+            raise KakayaToOshibka('Ты уверен что это лучший вариант?')
+    except KakayaToOshibka as err:
+        print(f'Проснись!!! {err}')
 
 nachalo()
 
